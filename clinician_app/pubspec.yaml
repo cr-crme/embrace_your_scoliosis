@@ -1,0 +1,40 @@
+name: enjoy_your_brace_clinician
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  enhanced_containers: ^0.1.0
+  ezlogin: ^1.0.0
+  auto_size_text: ^3.0.0
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.5 
+  common_lib:
+
+dependency_overrides:
+  enhanced_containers:
+    path: ../plugins/enhanced_containers
+  ezlogin:
+    path: ../plugins/ezlogin
+  common_lib:
+    path: ../common_lib
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - packages/common_lib/assets/veryBad.png
+    - packages/common_lib/assets/poor.png
+    - packages/common_lib/assets/medium.png
+    - packages/common_lib/assets/good.png
+    - packages/common_lib/assets/excellent.png

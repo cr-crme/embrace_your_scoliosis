@@ -1,0 +1,42 @@
+name: enjoy_your_brace
+description: A new Flutter project.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  csv: ^5.0.1
+  provider: ^6.0.4
+  enhanced_containers: ^0.1.0
+  graphic: ^1.0.0
+  intl: ^0.17.0
+  blue_maestro_ble: ^0.1.0
+  common_lib:
+  ezlogin: ^1.0.0
+
+dependency_overrides:
+  blue_maestro_ble:
+    path: ../plugins/blue_maestro_ble
+  common_lib:
+    path: ../common_lib
+  ezlogin:
+    path: ../plugins/ezlogin
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  test: ^1.14.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - packages/common_lib/assets/veryBad.png
+    - packages/common_lib/assets/poor.png
+    - packages/common_lib/assets/medium.png
+    - packages/common_lib/assets/good.png
+    - packages/common_lib/assets/excellent.png

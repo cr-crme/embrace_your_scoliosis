@@ -1,0 +1,9 @@
+[submodule "plugins/ezlogin"]
+	path = plugins/ezlogin
+	url = https://github.com/cr-crme/ezlogin.git
+[submodule "plugins/enhanced_containers"]
+	path = plugins/enhanced_containers
+	url = https://github.com/cr-crme/enhanced_containers.git
+[submodule "plugins/blue_maestro_ble.git"]
+	path = plugins/blue_maestro_ble.git
+	url = https://github.com/cr-crme/blue_maestro_ble.git
