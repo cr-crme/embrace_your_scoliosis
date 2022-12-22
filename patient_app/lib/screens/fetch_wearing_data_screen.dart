@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:common_lib/models/patient_data_list.dart';
 import 'package:common_lib/models/wearing_time.dart';
-import 'package:enjoy_your_brace/models/locale_text.dart';
+import 'package:common_lib/models/locale_text.dart';
 import 'package:flutter/material.dart';
 
 import '/data_collection_devices/data_collection_devices.dart';

@@ -39,7 +39,7 @@ packages:
   blue_maestro_ble:
     dependency: "direct main"
     description:
-      path: "../external/blue_maestro_ble"
+      path: "../plugins/blue_maestro_ble"
       relative: true
     source: path
     version: "0.1.0"
@@ -137,7 +137,7 @@ packages:
   ezlogin:
     dependency: "direct main"
     description:
-      path: "../external/ezlogin"
+      path: "../plugins/ezlogin"
       relative: true
     source: path
     version: "1.0.0"

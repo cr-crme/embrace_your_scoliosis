@@ -12,8 +12,6 @@ import '/screens/home_screen.dart';
 import '/screens/login_screen.dart';
 
 void main() async {
-  // The build is associated with a specific device device
-
   final dummy = dummyInitialDatabase();
   final database = Database(dummy['users']);
   // await database.login(username: 'first1@user.qc', password: '123456');

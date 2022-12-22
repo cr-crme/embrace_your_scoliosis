@@ -9,21 +9,30 @@ import 'screens/login_screen.dart';
 import 'screens/patient_overview_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  final dummy = dummyInitialDatabase();
+  final database = Database(dummy['users']);
+  final patients = dummy['patients'];
+  // await database.login(username: 'clinician@user.qc', password: '123456');
+
+  runApp(MyApp(
+    database: database,
+    patientList: patients,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Database database;
+  final PatientDataList? patientList;
+
+  const MyApp({super.key, required this.database, this.patientList});
   @override
   Widget build(BuildContext context) {
-    final dummy = dummyInitialDatabase();
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => LocaleText(language: 'fr')),
-        Provider<Database>(create: (_) => Database(dummy['users'])),
+        Provider<Database>(create: (_) => database),
         ChangeNotifierProvider<PatientDataList>(
-            create: (_) => dummy['patients']),
+            create: (_) => patientList ?? PatientDataList()),
       ],
       child: MaterialApp(
         theme: ThemeData(primarySwatch: Colors.blue),
