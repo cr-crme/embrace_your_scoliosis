@@ -32,6 +32,55 @@ class LocaleText with ChangeNotifier {
         'fr': 'Dis-nous comment tu te sens'
       }[language]!;
 
+  String get addNewPatient =>
+      {'en': 'Add new patient', 'fr': 'Ajouter un patient'}[language]!;
+  String get fillPatientInformation => {
+        'en': 'Fill patient information',
+        'fr': 'Entrer les informations du patient'
+      }[language]!;
+  String get fillYourInformation => {
+        'en': 'Fill your information',
+        'fr': 'Entrer vos informations'
+      }[language]!;
+  String get firstName => {'en': 'First name', 'fr': 'Prénom'}[language]!;
+  String get lastName => {'en': 'Last name', 'fr': 'Nom'}[language]!;
+  String get email => {'en': 'Email', 'fr': 'Courriel'}[language]!;
+  String get changeYourPassword => {
+        'en': 'Please change your password',
+        'fr': 'Changer votre mot de passe'
+      }[language]!;
+  String get password => {'en': 'Password', 'fr': 'Mot de passe'}[language]!;
+  String get newPassword =>
+      {'en': 'New password', 'fr': 'Nouveau mot de passe'}[language]!;
+  String get copyPassword =>
+      {'en': 'Copy the password', 'fr': 'Copier le mot de passe'}[language]!;
+  String get firstNameHint =>
+      {'en': 'Add a first name', 'fr': 'Ajouter un prénom'}[language]!;
+  String get lastNameHint =>
+      {'en': 'Add a last name', 'fr': 'Ajouter un nom de famille'}[language]!;
+  String get emailHint =>
+      {'en': 'Add an email', 'fr': 'Ajouter un courriel'}[language]!;
+  String get passwordHint => {
+        'en': 'Please type a password',
+        'fr': 'Taper votre mot de passe'
+      }[language]!;
+  String get passwordRules => {
+        'en': 'The password must be at least six characters long',
+        'fr': 'Le mot de passe doit être d\'au moins six caractères'
+      }[language]!;
+  String get copyPasswordHint => {
+        'en': 'Please copy the password',
+        'fr': 'Copier le mot de passe'
+      }[language]!;
+  String get copyPasswordError => {
+        'en': 'The two passwords must match',
+        'fr': 'Les mots de passe doivent correspondre'
+      }[language]!;
+
+  String get connect => {'en': 'Connect', 'fr': 'Connecter'}[language]!;
+  String get cancel => {'en': 'Cancel', 'fr': 'Annuler'}[language]!;
+  String get save => {'en': 'Save', 'fr': 'Enregistrer'}[language]!;
+
   String get submit => {'en': 'Submit', 'fr': 'Soumettre'}[language]!;
   String get mean => {'en': 'mean:', 'fr': 'moyenne :'}[language]!;
   String get day => {'en': 'day', 'fr': 'jour'}[language]!;

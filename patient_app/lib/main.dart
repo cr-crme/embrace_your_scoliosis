@@ -1,5 +1,4 @@
 import 'package:common_lib/models/database.dart';
-import 'package:common_lib/models/dummy_database.dart';
 import 'package:common_lib/models/locale_text.dart';
 import 'package:common_lib/models/patient_data_list.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +9,17 @@ import '/models/theme.dart';
 import '/screens/fetch_wearing_data_screen.dart';
 import '/screens/home_screen.dart';
 import '/screens/login_screen.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  final dummy = dummyInitialDatabase();
-  final database = Database(dummy['users']);
-  // await database.login(username: 'first1@user.qc', password: '123456');
+  const useEmulator = true;
+  final userDatabase = Database();
+  await userDatabase.initialize(
+      useEmulator: useEmulator,
+      currentPlatform: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(
-      MyApp(database: database, device: AvailableDevices.blueMaestroBleMock));
+  runApp(MyApp(
+      database: userDatabase, device: AvailableDevices.blueMaestroBleMock));
 }
 
 class MyApp extends StatelessWidget {

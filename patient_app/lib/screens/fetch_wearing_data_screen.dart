@@ -40,10 +40,12 @@ class FetchWearingDataScreen extends StatelessWidget {
           data.date, Duration(minutes: data.isBraceOn ? period : 0)));
     }
 
-    PatientDataList.of(context)
-        .addWearingTimeList(context, wear, notify: false);
+    PatientDataList.of(context).addWearingTimeList(context, wear);
 
     await device.clear(context);
+
+    Future.microtask(
+        () => Navigator.of(context).popAndPushNamed(HomeScreen.routeName));
   }
 
   @override
@@ -56,8 +58,6 @@ class FetchWearingDataScreen extends StatelessWidget {
       builder: (context, data) {
         if (data.hasData) {
           _sendDataFromDevice(context, device);
-          Future.microtask(() =>
-              Navigator.of(context).popAndPushNamed(HomeScreen.routeName));
         }
         return Scaffold(
           body: Container(

@@ -4,7 +4,7 @@ import 'wearing_time.dart';
 
 class WearingTimeList extends ListSerializable<WearingTime> {
   @override
-  WearingTime deserializeItem(data) => throw UnimplementedError();
+  WearingTime deserializeItem(data) => WearingTime.deserialize(data);
 
   WearingTimeList();
   WearingTimeList.fromSerialized(map) : super.fromSerialized(map);

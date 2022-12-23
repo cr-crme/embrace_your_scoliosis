@@ -15,7 +15,7 @@ class MoodQuestionnaire extends StatelessWidget {
         context: context,
         builder: ((context) => const AlertDialog(content: SelectMood())));
     if (mood == null) return;
-    PatientDataList.of(context).addMood(context, mood, notify: false);
+    PatientDataList.of(context).addMood(context, mood);
   }
 
   @override

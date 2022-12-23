@@ -11,7 +11,8 @@ class WearingTime extends ItemSerializable {
   WearingTime(this.startingTime, this.wearTime);
 
   WearingTime.deserialize(map)
-      : startingTime = map['date'],
+      : startingTime =
+            DateTime.fromMillisecondsSinceEpoch(map['date'] * 60 * 1000),
         wearTime = Duration(minutes: map['wear']);
 
   @override

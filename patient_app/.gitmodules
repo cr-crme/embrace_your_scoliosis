@@ -1,3 +1,0 @@
-[submodule "external/blue_maestro_ble"]
-	path = external/blue_maestro_ble
-	url = https://github.com/cr-crme/blue_maestro_ble.git

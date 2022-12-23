@@ -7,49 +7,51 @@ import 'package:provider/provider.dart';
 
 import 'patient_data.dart';
 
-class PatientDataList extends ListProvided<PatientData> {
+class PatientDataList extends FirebaseListProvided<PatientData> {
+  PatientDataList({super.pathToData = 'patients'});
+
   @override
   PatientData deserializeItem(data) => PatientData.fromSerialized(data);
 
   static PatientDataList of(BuildContext context, {bool listen = false}) =>
       Provider.of<PatientDataList>(context, listen: listen);
 
-  PatientData myData(BuildContext context, {notify = true}) {
+  PatientData myData(BuildContext context) {
     final currentUser = Database.of(context).currentUser!;
     try {
-      return firstWhere((element) => element.userId == currentUser.email);
+      return firstWhere((element) => element.id == currentUser.id);
     } on StateError {
-      add(PatientData(currentUser), notify: notify);
-      return last;
+      final patient = PatientData(currentUser);
+      add(patient);
+      return patient;
     }
   }
 
-  void addMood(BuildContext context, Mood mood, {notify = true}) {
-    final data = myData(context, notify: false);
+  void addMood(BuildContext context, Mood mood) {
+    final data = myData(context);
     data.moodData.add(mood);
-    if (notify) notifyListeners();
+    add(data);
   }
 
-  void addMoodList(BuildContext context, List<Mood> moodList, {notify = true}) {
-    final data = myData(context, notify: false);
+  void addMoodList(BuildContext context, List<Mood> moodList) {
+    final data = myData(context);
     for (final mood in moodList) {
       data.moodData.add(mood);
     }
-    if (notify) notifyListeners();
+    add(data);
   }
 
-  void addWearingTime(BuildContext context, WearingTime wear, {notify = true}) {
-    final data = myData(context, notify: false);
+  void addWearingTime(BuildContext context, WearingTime wear) {
+    final data = myData(context);
     data.wearingData.add(wear);
-    if (notify) notifyListeners();
+    add(data);
   }
 
-  void addWearingTimeList(BuildContext context, List<WearingTime> wearList,
-      {notify = true}) {
-    final data = myData(context, notify: false);
+  void addWearingTimeList(BuildContext context, List<WearingTime> wearList) {
+    final data = myData(context);
     for (final wear in wearList) {
       data.wearingData.add(wear);
     }
-    if (notify) notifyListeners();
+    add(data);
   }
 }

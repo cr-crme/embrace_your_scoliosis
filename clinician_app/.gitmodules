@@ -1,6 +1,0 @@
-[submodule "external/enhanced_containers"]
-	path = external/enhanced_containers
-	url = https://github.com/cr-crme/enhanced_containers/
-[submodule "external/ezlogin"]
-	path = external/ezlogin
-	url = https://github.com/cr-crme/ezlogin.git

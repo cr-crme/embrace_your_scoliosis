@@ -16,6 +16,7 @@ class Mood extends ItemSerializable {
     this.comfort = MoodDataLevel.none,
     this.humidity = MoodDataLevel.none,
     this.autonomy = MoodDataLevel.none,
+    super.id,
   });
 
   Mood copyWith({
@@ -31,6 +32,7 @@ class Mood extends ItemSerializable {
       comfort: comfort ?? this.comfort,
       humidity: humidity ?? this.humidity,
       autonomy: autonomy ?? this.autonomy,
+      id: id,
     );
   }
 
@@ -72,11 +74,12 @@ class Mood extends ItemSerializable {
       };
 
   Mood.deserialize(map)
-      : date = DateTime.parse(((map['date'] as int) * 60 * 1000).toString()),
+      : date = DateTime.fromMillisecondsSinceEpoch(map['date'] * 60 * 1000),
         emotion = MoodDataLevel.values[map['emotion']],
         comfort = MoodDataLevel.values[map['comfort']],
-        humidity = MoodDataLevel.values[map['humidty']],
-        autonomy = MoodDataLevel.values[map['autonomy']];
+        humidity = MoodDataLevel.values[map['humidity']],
+        autonomy = MoodDataLevel.values[map['autonomy']],
+        super.fromSerialized(map);
 
   bool get hasVeryBad =>
       emotion == MoodDataLevel.veryBad ||

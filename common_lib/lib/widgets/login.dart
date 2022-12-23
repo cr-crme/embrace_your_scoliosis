@@ -1,8 +1,11 @@
 import 'package:ezlogin/ezlogin.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '/models/database.dart';
+import '../models/database.dart';
+import '../models/locale_text.dart';
+import '../models/main_user.dart';
+import 'change_password_dialog.dart';
+import 'new_clinician_dialog.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key, required this.targetRouteName});
@@ -19,6 +22,11 @@ class _LoginState extends State<Login> {
   String? _email;
   String? _password;
   Future<EzloginStatus>? _futureStatus;
+
+  Future<MainUser?> _registerNewClinician() async {
+    return await showDialog<MainUser>(
+        context: context, builder: (ctx) => NewClinicianDialog(email: _email!));
+  }
 
   Future<String> _changePassword() async {
     final password = await showDialog<String>(
@@ -39,10 +47,10 @@ class _LoginState extends State<Login> {
     _formKey.currentState!.save();
 
     // Login with the Notifier
-    final database = Provider.of<Database>(context, listen: false);
-    final status = await database.login(
+    final status = await Database.of(context).login(
       username: _email!,
       password: _password!,
+      getNewUserInfo: _registerNewClinician,
       getNewPassword: _changePassword,
     );
 
@@ -62,6 +70,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final texts = LocaleText.of(context);
+
     return FutureBuilder<EzloginStatus>(
         future: _futureStatus,
         builder: (context, snapshot) {
@@ -77,17 +87,16 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'Email'),
-                    validator: (value) => value == null || value.isEmpty
-                        ? 'Please type your email'
-                        : null,
+                    decoration: InputDecoration(labelText: texts.email),
+                    validator: (value) =>
+                        value == null || value.isEmpty ? texts.emailHint : null,
                     onSaved: (value) => _email = value,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'Password'),
+                    decoration: InputDecoration(labelText: texts.password),
                     validator: (value) => value == null || value.isEmpty
-                        ? 'Please type your password'
+                        ? texts.passwordHint
                         : null,
                     onSaved: (value) => _password = value,
                     obscureText: true,
@@ -101,7 +110,7 @@ class _LoginState extends State<Login> {
                       _futureStatus = _processConnexion();
                       setState(() {});
                     },
-                    child: const Text('Connect'),
+                    child: Text(texts.connect),
                   )
                 ],
               ),
@@ -130,84 +139,6 @@ class _LoginState extends State<Login> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message), duration: const Duration(seconds: 5)),
-    );
-  }
-}
-
-class ChangePasswordAlertDialog extends StatefulWidget {
-  const ChangePasswordAlertDialog({
-    super.key,
-  });
-
-  @override
-  State<ChangePasswordAlertDialog> createState() =>
-      _ChangePasswordAlertDialogState();
-}
-
-class _ChangePasswordAlertDialogState extends State<ChangePasswordAlertDialog> {
-  final _formKey = GlobalKey<FormState>();
-  String? _password;
-
-  void _finalize() {
-    _formKey.currentState!.save();
-    if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
-      return;
-    }
-
-    Navigator.pop(context, _password);
-  }
-
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) return 'Please type a password';
-    if (value.length < 6) {
-      return 'The password must be at least six characters long';
-    }
-
-    return null;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Please, change your password'),
-      content: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'New password'),
-                validator: _validatePassword,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                keyboardType: TextInputType.visiblePassword,
-                onSaved: (value) => _password = value,
-              ),
-              TextFormField(
-                decoration:
-                    const InputDecoration(labelText: 'Copy the new password'),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Please copy the password'
-                    : (value != _password
-                        ? 'The two passwords must match'
-                        : null),
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                keyboardType: TextInputType.visiblePassword,
-              ),
-            ],
-          ),
-        ),
-      ),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('Save'),
-          onPressed: () => _finalize(),
-        ),
-      ],
     );
   }
 }

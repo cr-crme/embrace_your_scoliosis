@@ -1,5 +1,5 @@
+import 'package:clinician_app/firebase_options.dart';
 import 'package:common_lib/models/database.dart';
-import 'package:common_lib/models/dummy_database.dart';
 import 'package:common_lib/models/locale_text.dart';
 import 'package:common_lib/models/patient_data_list.dart';
 import 'package:flutter/material.dart';
@@ -8,23 +8,20 @@ import 'package:provider/provider.dart';
 import 'screens/login_screen.dart';
 import 'screens/patient_overview_screen.dart';
 
-void main() {
-  final dummy = dummyInitialDatabase();
-  final database = Database(dummy['users']);
-  final patients = dummy['patients'];
-  // await database.login(username: 'clinician@user.qc', password: '123456');
+void main() async {
+  const useEmulator = true;
+  final userDatabase = Database();
+  await userDatabase.initialize(
+      useEmulator: useEmulator,
+      currentPlatform: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(MyApp(
-    database: database,
-    patientList: patients,
-  ));
+  runApp(MyApp(database: userDatabase));
 }
 
 class MyApp extends StatelessWidget {
   final Database database;
-  final PatientDataList? patientList;
 
-  const MyApp({super.key, required this.database, this.patientList});
+  const MyApp({super.key, required this.database});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -32,7 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => LocaleText(language: 'fr')),
         Provider<Database>(create: (_) => database),
         ChangeNotifierProvider<PatientDataList>(
-            create: (_) => patientList ?? PatientDataList()),
+            create: (_) => PatientDataList()),
       ],
       child: MaterialApp(
         theme: ThemeData(primarySwatch: Colors.blue),

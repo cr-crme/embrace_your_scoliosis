@@ -6,7 +6,6 @@ import 'package:common_lib/models/mood_list.dart';
 import 'package:common_lib/models/patient_data.dart';
 import 'package:common_lib/models/wearing_time_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:common_lib/models/locale_text.dart';
 
@@ -88,8 +87,7 @@ class _PatientOverviewState extends State<PatientOverview> {
   }
 
   Future<MainUser?> _fetchUser() async {
-    final database = Provider.of<Database>(context, listen: false);
-    return await database.user(widget.patient.userId);
+    return await Database.of(context).user(widget.patient.id);
   }
 
   void select(int index) {
@@ -114,12 +112,9 @@ class _PatientOverviewState extends State<PatientOverview> {
     return FutureBuilder<MainUser?>(
         future: _patient,
         builder: (context, userSnapshot) {
-          if (!userSnapshot.hasData || userSnapshot.data == null) {
-            return SizedBox(
-              height: widget._layout.height,
-              width: widget._layout.width,
-              child: const Center(child: CircularProgressIndicator()),
-            );
+          if (!userSnapshot.hasData) {
+            return WaitingPatient(
+                height: widget._layout.height, width: widget._layout.width);
           }
           final user = userSnapshot.data!;
 
@@ -152,6 +147,33 @@ class _PatientOverviewState extends State<PatientOverview> {
             ],
           );
         });
+  }
+}
+
+class WaitingPatient extends StatelessWidget {
+  const WaitingPatient({Key? key, required this.height, required this.width})
+      : super(key: key);
+
+  final double height;
+  final double width;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.blue,
+                width: 3,
+              ),
+              borderRadius: BorderRadius.circular(25)),
+          child: const Center(child: CircularProgressIndicator()),
+        ),
+      ],
+    );
   }
 }
 
@@ -325,6 +347,7 @@ class _MoodSection extends StatelessWidget {
         if (mood != null && mood != MoodDataLevel.none)
           Image.asset(
             mood.path,
+            width: layout.width / 5,
             cacheWidth: layout.width ~/ 5,
             package: 'common_lib',
           ),

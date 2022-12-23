@@ -1,0 +1,51 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "clinician_app",
+            "cwd": "clinician_app",
+            "request": "launch",
+            "type": "dart",
+            "preLaunchTask": "Run Firebase Emulator"
+        },
+        {
+            "name": "clinician_app (profile mode)",
+            "cwd": "clinician_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "preLaunchTask": "Run Firebase Emulator"
+        },
+        {
+            "name": "clinician_app (release mode)",
+            "cwd": "clinician_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "preLaunchTask": "Run Firebase Emulator"
+        },
+        {
+            "name": "patient_app",
+            "cwd": "patient_app",
+            "request": "launch",
+            "type": "dart",
+        },
+        {
+            "name": "patient_app (profile mode)",
+            "cwd": "patient_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+        },
+        {
+            "name": "patient_app (release mode)",
+            "cwd": "patient_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+        },
+    ]
+}
