@@ -15,10 +15,10 @@ class PatientData extends ItemSerializable {
         super(id: emailToPath(user.email));
 
   PatientData.fromSerialized(map)
-      : wearingData = map['wearing'] != null
+      : wearingData = map != null && map['wearing'] != null
             ? WearingTimeList.fromSerialized(map['wearing'])
             : WearingTimeList(),
-        moodData = map['mood'] != null
+        moodData = map != null && map['mood'] != null
             ? MoodList.fromSerialized(map['mood'])
             : MoodList(),
         super.fromSerialized(map);

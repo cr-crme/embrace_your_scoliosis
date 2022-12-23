@@ -12,7 +12,7 @@ import '/screens/login_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  const useEmulator = true;
+  const useEmulator = false;
   final userDatabase = Database();
   await userDatabase.initialize(
       useEmulator: useEmulator,
@@ -42,9 +42,9 @@ class MyApp extends StatelessWidget {
         theme: enjoyYourBraceTheme,
         routes: {
           LoginScreen.routeName: (ctx) => const LoginScreen(),
-          HomeScreen.routeName: (ctx) => const HomeScreen(),
           FetchWearingDataScreen.routeName: (ctx) =>
               FetchWearingDataScreen(device: device),
+          HomeScreen.routeName: (ctx) => const HomeScreen(),
         },
       ),
     );

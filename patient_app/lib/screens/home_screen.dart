@@ -6,7 +6,7 @@ import '../widgets/mood_questionnaire.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  static String routeName = '/home-screen';
+  static const String routeName = '/home-screen';
 
   @override
   Widget build(BuildContext context) {

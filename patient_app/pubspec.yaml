@@ -26,6 +26,8 @@ dependency_overrides:
     path: ../common_lib
   ezlogin:
     path: ../plugins/ezlogin
+  enhanced_containers:
+    path: ../plugins/enhanced_containers
 
 dev_dependencies:
   flutter_test:

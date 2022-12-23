@@ -130,9 +130,9 @@ packages:
   enhanced_containers:
     dependency: "direct main"
     description:
-      name: enhanced_containers
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../plugins/enhanced_containers"
+      relative: true
+    source: path
     version: "0.1.0"
   ezlogin:
     dependency: "direct main"

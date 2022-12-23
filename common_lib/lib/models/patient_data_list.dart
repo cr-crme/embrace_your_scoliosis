@@ -1,6 +1,8 @@
 import 'package:common_lib/models/database.dart';
 import 'package:common_lib/models/mood.dart';
+import 'package:common_lib/models/mood_list.dart';
 import 'package:common_lib/models/wearing_time.dart';
+import 'package:common_lib/models/wearing_time_list.dart';
 import 'package:enhanced_containers/enhanced_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,30 +30,26 @@ class PatientDataList extends FirebaseListProvided<PatientData> {
   }
 
   void addMood(BuildContext context, Mood mood) {
-    final data = myData(context);
-    data.moodData.add(mood);
-    add(data);
+    final currentUser = Database.of(context).currentUser!;
+    final moodList = MoodList();
+    moodList.add(mood);
+    insertInList('${currentUser.id}/mood', moodList);
   }
 
-  void addMoodList(BuildContext context, List<Mood> moodList) {
-    final data = myData(context);
-    for (final mood in moodList) {
-      data.moodData.add(mood);
-    }
-    add(data);
+  void addMoodList(BuildContext context, MoodList moodList) {
+    final currentUser = Database.of(context).currentUser!;
+    insertInList('${currentUser.id}/mood', moodList);
   }
 
   void addWearingTime(BuildContext context, WearingTime wear) {
-    final data = myData(context);
-    data.wearingData.add(wear);
-    add(data);
+    final currentUser = Database.of(context).currentUser!;
+    final wearList = WearingTimeList();
+    wearList.add(wear);
+    insertInList('${currentUser.id}/wearing', wearList);
   }
 
-  void addWearingTimeList(BuildContext context, List<WearingTime> wearList) {
-    final data = myData(context);
-    for (final wear in wearList) {
-      data.wearingData.add(wear);
-    }
-    add(data);
+  void addWearingTimeList(BuildContext context, WearingTimeList wearList) {
+    final currentUser = Database.of(context).currentUser!;
+    insertInList('${currentUser.id}/wearing', wearList);
   }
 }

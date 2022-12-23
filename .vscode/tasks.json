@@ -6,7 +6,7 @@
             "command": "firebase",
             "args": ["emulators:start"], // TODO: Import/export data
             "type": "shell",
-            "options": { "cwd": "${workspaceFolder}\\clinician_app" },
+            "options": { "cwd": "${workspaceFolder}/clinician_app" },
             "isBackground": true,
             "problemMatcher": {
                 "pattern": {

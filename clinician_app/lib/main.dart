@@ -9,7 +9,7 @@ import 'screens/login_screen.dart';
 import 'screens/patient_overview_screen.dart';
 
 void main() async {
-  const useEmulator = true;
+  const useEmulator = false;
   final userDatabase = Database();
   await userDatabase.initialize(
       useEmulator: useEmulator,

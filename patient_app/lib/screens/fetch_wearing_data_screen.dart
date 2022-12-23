@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:common_lib/models/patient_data_list.dart';
 import 'package:common_lib/models/wearing_time.dart';
 import 'package:common_lib/models/locale_text.dart';
+import 'package:common_lib/models/wearing_time_list.dart';
 import 'package:flutter/material.dart';
 
 import '/data_collection_devices/data_collection_devices.dart';
@@ -33,7 +34,7 @@ class FetchWearingDataScreen extends StatelessWidget {
 
   void _sendDataFromDevice(
       BuildContext context, DataCollectionDevice device) async {
-    List<WearingTime> wear = [];
+    final wear = WearingTimeList();
     final period = 60 ~/ device.frequency;
     for (final data in device.data) {
       wear.add(WearingTime(
