@@ -1,5 +1,6 @@
-import '../data/ble_data_point.dart';
 import 'package:flutter/material.dart';
+
+import '../data/ble_data_point.dart';
 
 abstract class DataCollectionDevice {
   DataCollectionDevice({required this.frequency});

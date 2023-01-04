@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '/data_collection_devices/devices/available_devices.dart';
+import '/firebase_options.dart';
 import '/models/theme.dart';
 import '/screens/fetch_wearing_data_screen.dart';
-import '/screens/home_screen.dart';
 import '/screens/login_screen.dart';
+import '/screens/main_screen.dart';
 import '/screens/permission_screen.dart';
-import 'firebase_options.dart';
 
 void main() async {
   const useEmulator = false;
@@ -50,9 +50,9 @@ class MyApp extends StatelessWidget {
               ),
           FetchWearingDataScreen.routeName: (ctx) => FetchWearingDataScreen(
                 device: device,
-                nextRoute: HomeScreen.routeName,
+                nextRoute: MainScreen.routeName,
               ),
-          HomeScreen.routeName: (ctx) => const HomeScreen(),
+          MainScreen.routeName: (ctx) => const MainScreen(),
         },
       ),
     );

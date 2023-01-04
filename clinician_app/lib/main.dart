@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primarySwatch: Colors.blue),
         initialRoute: LoginScreen.routeName,
         routes: {
-          LoginScreen.routeName: (context) => const LoginScreen(),
+          LoginScreen.routeName: (context) =>
+              const LoginScreen(nextRoute: PatientOverviewScreen.routeName),
           PatientOverviewScreen.routeName: (context) =>
               const PatientOverviewScreen(),
         },
