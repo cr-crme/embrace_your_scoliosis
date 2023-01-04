@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.enjoy_your_brace">
+   <uses-permission android:name="android.permission.INTERNET"/>
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+   <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+   <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
    <application
         android:label="enjoy_your_brace"
         android:name="${applicationName}"

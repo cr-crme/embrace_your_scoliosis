@@ -19,10 +19,20 @@ class LocaleText with ChangeNotifier {
 
   String get title =>
       {'en': 'Enjoy Your Brace', 'fr': 'Aime ton corset'}[language]!;
-  String get fetchingAndSedingData => {
-        'en': 'Fetching and sending data',
-        'fr': 'Récupération et envoi\ndes données'
+  String get connectingToDevice => {
+        'en': 'Connecting to brace',
+        'fr': 'Connexion avec le corset'
       }[language]!;
+  String get collectingData => {
+        'en': 'Collecting data\nfrom brace',
+        'fr': 'Récupération des données\ndu corset'
+      }[language]!;
+  String get sendingToDatabase => {
+        'en': 'Sending data\nto clinician',
+        'fr': 'Envoi des données\nau clinicien'
+      }[language]!;
+  String get finalizingDataCollection =>
+      {'en': 'Finalizing data collection', 'fr': 'Finalization'}[language]!;
   String get meanWearingTime => {
         'en': 'Brace mean wearing time',
         'fr': 'Temps de port moyen du corset'

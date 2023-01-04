@@ -31,8 +31,10 @@ class SimulatedTemperatureDevice extends DataCollectionDevice {
   }
 
   @override
-  Future<bool> fetchData(BuildContext context, {notify = false}) async {
+  Future<bool> fetchData(BuildContext context,
+      {notify = false, Function? onDeviceConnected}) async {
     if (data.isNotEmpty) return true;
+    if (onDeviceConnected != null) onDeviceConnected();
 
     data.clear();
     simulateData();

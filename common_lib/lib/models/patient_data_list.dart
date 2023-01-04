@@ -20,13 +20,7 @@ class PatientDataList extends FirebaseListProvided<PatientData> {
 
   PatientData myData(BuildContext context) {
     final currentUser = Database.of(context).currentUser!;
-    try {
-      return firstWhere((element) => element.id == currentUser.id);
-    } on StateError {
-      final patient = PatientData(currentUser);
-      add(patient);
-      return patient;
-    }
+    return firstWhere((element) => element.id == currentUser.id);
   }
 
   void addMood(BuildContext context, Mood mood) {

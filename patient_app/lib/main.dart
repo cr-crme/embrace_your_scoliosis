@@ -9,6 +9,7 @@ import '/models/theme.dart';
 import '/screens/fetch_wearing_data_screen.dart';
 import '/screens/home_screen.dart';
 import '/screens/login_screen.dart';
+import '/screens/permission_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -18,8 +19,8 @@ void main() async {
       useEmulator: useEmulator,
       currentPlatform: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(MyApp(
-      database: userDatabase, device: AvailableDevices.blueMaestroBleMock));
+  runApp(
+      MyApp(database: userDatabase, device: AvailableDevices.blueMaestroBle));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,12 +39,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => PatientDataList()),
       ],
       child: MaterialApp(
-        initialRoute: LoginScreen.routeName,
+        initialRoute: PermissionScreen.routeName,
         theme: enjoyYourBraceTheme,
         routes: {
-          LoginScreen.routeName: (ctx) => const LoginScreen(),
-          FetchWearingDataScreen.routeName: (ctx) =>
-              FetchWearingDataScreen(device: device),
+          PermissionScreen.routeName: (ctx) => const PermissionScreen(
+                nextRoute: LoginScreen.routeName,
+              ),
+          LoginScreen.routeName: (ctx) => const LoginScreen(
+                nextRoute: FetchWearingDataScreen.routeName,
+              ),
+          FetchWearingDataScreen.routeName: (ctx) => FetchWearingDataScreen(
+                device: device,
+                nextRoute: HomeScreen.routeName,
+              ),
           HomeScreen.routeName: (ctx) => const HomeScreen(),
         },
       ),

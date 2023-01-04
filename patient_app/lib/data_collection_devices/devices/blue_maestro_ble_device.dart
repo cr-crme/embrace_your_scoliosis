@@ -7,6 +7,7 @@ import 'data_collection_device.dart';
 class BlueMaestroDevice extends DataCollectionDevice {
   final BlueMaestroBle device;
   bool _isInitialized = false;
+  bool _hasFetched = false;
 
   BlueMaestroDevice({bool useMock = false, int numberOfSimulatedHours = 100})
       : device = useMock
@@ -29,11 +30,14 @@ class BlueMaestroDevice extends DataCollectionDevice {
       data.add(
           BlueMaestroBleDataPoint(measures.temperature[i], date: timeStamp));
     }
+    _hasFetched = true;
   }
 
-  Future<BleStatusCode> _requestData(BuildContext context) async {
+  Future<BleStatusCode> _requestData(BuildContext context,
+      {Function? onDeviceConnected}) async {
     if (!_isInitialized) {
-      final status = await device.initialize(maximumRetries: 10);
+      final status = await device.initialize(
+          maximumRetries: 10, onServicesFound: onDeviceConnected);
       if (status != BleStatusCode.success) return status;
     }
     _isInitialized = true;
@@ -47,11 +51,23 @@ class BlueMaestroDevice extends DataCollectionDevice {
   }
 
   @override
-  Future<bool> fetchData(BuildContext context, {notify = false}) async {
+  Future<bool> fetchData(BuildContext context,
+      {notify = false, Function? onDeviceConnected}) async {
     if (data.isNotEmpty) return true;
+    _hasFetched = false;
 
-    final status = await _requestData(context);
+    final status =
+        await _requestData(context, onDeviceConnected: onDeviceConnected);
     if (status != BleStatusCode.success) return false;
+
+    // Wait for the data to arrive
+    final watch = Stopwatch();
+    while (true) {
+      if (watch.elapsed.inSeconds > 10) return false;
+
+      if (_hasFetched) break;
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
 
     return true;
   }

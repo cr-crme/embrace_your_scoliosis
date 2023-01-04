@@ -13,7 +13,8 @@ abstract class DataCollectionDevice {
   ///
   /// This method fetches a new data point to the device, adds it to the data
   /// list and returns if it was a success or not.
-  Future<bool> fetchData(BuildContext context, {notify = false});
+  Future<bool> fetchData(BuildContext context,
+      {notify = false, Function? onDeviceConnected});
 
   ///
   /// Once the data are aquired, one must clear the data in the device so they
