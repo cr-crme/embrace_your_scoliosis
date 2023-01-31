@@ -44,12 +44,14 @@ class WearingTimeList extends ListSerializable<WearingTime> {
 
   ///
   /// Returns the mean wearing time per day of the scoliosis brace
-  double get meanWearingTimePerDay => isEmpty
-      ? 0
-      : totalWearingTime /
-          (latest.startingTime
-                  .difference(earliest.startingTime)
-                  .inHours
-                  .toDouble() /
-              24);
+  double get meanWearingTimePerDay {
+    final ratio = (isEmpty
+        ? 0
+        : latest.startingTime
+                .difference(earliest.startingTime)
+                .inHours
+                .toDouble() /
+            24);
+    return isEmpty || ratio == 0 ? 0 : totalWearingTime / ratio;
+  }
 }

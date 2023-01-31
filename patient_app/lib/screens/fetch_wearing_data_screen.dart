@@ -28,6 +28,7 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
   late final DataCollectionDevice _dataCollectionDevice;
   late Future<bool> _hasFetchedData;
   late String _statusMessage;
+  bool _isSending = false;
 
   @override
   void initState() {
@@ -55,6 +56,7 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
 
   void _sendToDatabase(
       BuildContext context, DataCollectionDevice device) async {
+    _isSending = true;
     final texts = LocaleText.of(context, listen: false);
 
     // Fetch the data and send to the database
@@ -90,13 +92,17 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
               setState(() => _statusMessage = texts.finalizingDataCollection);
             }
           });
-          await device.clear(context);
+
           break;
         }
       } on StateError {
         // This means the data are not there yet, we still have to wait for them
       }
       await Future.delayed(const Duration(milliseconds: 100));
+    }
+
+    if (mounted) {
+      await device.clear(context);
     }
 
     // Wait a final frame to push the next page
@@ -115,7 +121,7 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
     return FutureBuilder(
       future: _hasFetchedData,
       builder: (context, data) {
-        if (data.hasData) {
+        if (data.hasData && !_isSending) {
           _sendToDatabase(context, _dataCollectionDevice);
         }
         return Scaffold(
