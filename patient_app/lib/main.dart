@@ -19,8 +19,8 @@ void main() async {
       useEmulator: useEmulator,
       currentPlatform: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(
-      MyApp(database: userDatabase, device: AvailableDevices.blueMaestroBle));
+  runApp(MyApp(
+      database: userDatabase, device: AvailableDevices.blueMaestroBleMock));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +36,11 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => LocaleText(language: 'fr')),
         Provider<Database>(create: (_) => database),
-        ChangeNotifierProvider(create: (ctx) => PatientDataList()),
+        ChangeNotifierProvider(create: (ctx) {
+          final patientData = PatientDataList();
+          patientData.initializeFetchingData();
+          return patientData;
+        }),
       ],
       child: MaterialApp(
         initialRoute: PermissionScreen.routeName,

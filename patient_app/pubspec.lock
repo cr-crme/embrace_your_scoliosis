@@ -320,10 +320,10 @@ packages:
     dependency: "direct main"
     description:
       name: graphic
-      sha256: "9c317c01fd04a2ec750e456bf8ed4ef000ad8bb6bf125785085490b2ef31f0be"
+      sha256: "5eebd9a45af4a0a72fa47498e4b8df6a9afde3c59be7cac56e08985ec7be4382"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "2.2.0"
   http:
     dependency: transitive
     description:
