@@ -28,8 +28,11 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => LocaleText(language: 'fr')),
         Provider<Database>(create: (_) => database),
-        ChangeNotifierProvider<PatientDataList>(
-            create: (_) => PatientDataList()),
+        ChangeNotifierProvider<PatientDataList>(create: (_) {
+          final patients = PatientDataList();
+          patients.initializeFetchingData();
+          return patients;
+        }),
       ],
       child: MaterialApp(
         theme: ThemeData(primarySwatch: Colors.blue),
