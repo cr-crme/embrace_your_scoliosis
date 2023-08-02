@@ -40,7 +40,7 @@ class MoodQuestionnaire extends StatelessWidget {
                     texts.tellUsNowYouFeel,
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
+                        .headlineSmall!
                         .copyWith(color: Colors.black),
                   ),
                 ),

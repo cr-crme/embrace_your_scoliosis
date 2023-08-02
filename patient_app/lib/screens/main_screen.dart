@@ -14,9 +14,9 @@ class MainScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
-          child: Center(
+          child: const Center(
             child: Column(
-              children: const [
+              children: [
                 MoodPie(),
                 MoodQuestionnaire(),
               ],

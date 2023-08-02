@@ -144,7 +144,7 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headlineSmall!
                               .copyWith(color: Colors.black),
                         ),
                       ),

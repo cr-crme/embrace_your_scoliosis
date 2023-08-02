@@ -31,7 +31,7 @@ class MoodPie extends StatelessWidget {
                   texts.meanWearingTime,
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(color: Colors.black),
                 ),
               ),
