@@ -39,6 +39,12 @@ firebase init
 flutterfire configure --project=embraceyourscoliosis-456b1
 ```
 
+Note, if you get an error about polyci blocking scripts on Windows, you can run these lines in PowerShell before:
+
+```bash
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
 ### Firebase Emulators
 
 During the debug phase, it is convenient to rely on the firebase emulator instead of the actual database. To do so, you can either:
