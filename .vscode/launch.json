@@ -5,11 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "example_app",
+            "cwd": "plugins/blue_maestro_ble/example",
+            "request": "launch",
+            "type": "dart",
+            //"preLaunchTask": "Run Firebase Emulator"
+        },
+
+        {
             "name": "clinician_app",
             "cwd": "clinician_app",
             "request": "launch",
             "type": "dart",
-            "preLaunchTask": "Run Firebase Emulator"
+            //"preLaunchTask": "Run Firebase Emulator"
         },
         {
             "name": "clinician_app (profile mode)",
@@ -17,7 +25,7 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
-            "preLaunchTask": "Run Firebase Emulator"
+            //"preLaunchTask": "Run Firebase Emulator"
         },
         {
             "name": "clinician_app (release mode)",
@@ -25,7 +33,7 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "preLaunchTask": "Run Firebase Emulator"
+            //"preLaunchTask": "Run Firebase Emulator"
         },
         {
             "name": "patient_app",
