@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patient_app/widgets/ask_question.dart';
 
 import '/widgets/mood_pie.dart';
 import '/widgets/mood_questionnaire.dart';
@@ -16,9 +17,11 @@ class MainScreen extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: const Center(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 MoodPie(),
                 MoodQuestionnaire(),
+                Expanded(child: AskQuestions()),
               ],
             ),
           ),

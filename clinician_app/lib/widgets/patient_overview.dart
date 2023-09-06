@@ -18,7 +18,7 @@ class _BackgroundColors {
 
   const _BackgroundColors(
       {required this.extraLight, required this.light, required this.dark});
-
+// initialisation des couleurs de la fiche patient
   _BackgroundColors.red()
       : extraLight = const Color.fromARGB(255, 255, 187, 194),
         light = Colors.red[200]!,
@@ -66,7 +66,7 @@ class PatientOverview extends StatefulWidget {
     this.patient, {
     super.key,
     double height = 200.0,
-    double width = 100,
+    double width = 100.0,
   }) : _layout = _Layout(
             height: height, width: width, cornerRadius: 10, borderWidth: 4);
 
