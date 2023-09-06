@@ -35,6 +35,7 @@ class _BackgroundColors {
         dark = Colors.green;
 
   factory _BackgroundColors.choseFromData(WearingTimeList? data) {
+    //conditions des couleurs de la fiche en fonction du temps de port
     if (data == null ||
         data.meanWearingTimePerDay < ExpectedWearingTime.bad.id) {
       return _BackgroundColors.red();
@@ -65,7 +66,7 @@ class PatientOverview extends StatefulWidget {
     this.patient, {
     super.key,
     double height = 200.0,
-    double width = 100.0,
+    double width = 100,
   }) : _layout = _Layout(
             height: height, width: width, cornerRadius: 10, borderWidth: 4);
 
@@ -135,6 +136,7 @@ class _PatientOverviewState extends State<PatientOverview> {
               : colors;
 
           return Column(
+            // définition des quatre parties de chaque fiche patient
             mainAxisSize: MainAxisSize.min,
             children: [
               _HeaderSection('${user.firstName} ${user.lastName}',
@@ -371,6 +373,7 @@ class _DayButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //partie bouttons des jours
     return Container(
       width: layout.width,
       height: layout.height * 3 / 20,
@@ -383,22 +386,30 @@ class _DayButtonsSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _DayTextButton('1j',
-              layout: layout,
-              colors: selected == 0 ? colors.dark : colors.extraLight,
-              onPressed: () => onPressed(0)),
-          _DayTextButton('7j',
-              layout: layout,
-              colors: selected == 1 ? colors.dark : colors.extraLight,
-              onPressed: () => onPressed(1)),
-          _DayTextButton('30j',
-              layout: layout,
-              colors: selected == 2 ? colors.dark : colors.extraLight,
-              onPressed: () => onPressed(2)),
-          _DayTextButton('1a',
-              layout: layout,
-              colors: selected == 3 ? colors.dark : colors.extraLight,
-              onPressed: () => onPressed(3)),
+          Expanded(
+            child: _DayTextButton('1j',
+                layout: layout,
+                colors: selected == 0 ? colors.dark : colors.extraLight,
+                onPressed: () => onPressed(0)),
+          ),
+          Expanded(
+            child: _DayTextButton('7j',
+                layout: layout,
+                colors: selected == 1 ? colors.dark : colors.extraLight,
+                onPressed: () => onPressed(1)),
+          ),
+          Expanded(
+            child: _DayTextButton('30j',
+                layout: layout,
+                colors: selected == 2 ? colors.dark : colors.extraLight,
+                onPressed: () => onPressed(2)),
+          ),
+          Expanded(
+            child: _DayTextButton('1a',
+                layout: layout,
+                colors: selected == 3 ? colors.dark : colors.extraLight,
+                onPressed: () => onPressed(3)),
+          ),
         ],
       ),
     );

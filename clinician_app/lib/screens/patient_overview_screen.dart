@@ -16,7 +16,7 @@ class PatientOverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final texts = LocaleText.of(context);
     final windowWidth = MediaQuery.of(context).size.width;
-    final width = windowWidth >= 600 ? 200.0 : windowWidth / 3;
+    final width = windowWidth >= 600 ? 200.0 : windowWidth / 2;
     final height = width * 3 / 2;
 
     final database = Database.of(context);
@@ -30,12 +30,15 @@ class PatientOverviewScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: Padding(
+        //padding fait une séparation entre chaque fiche patient
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
+          // GridView permet de mettre plusieurs fiche patient sur la même ligne
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+              //grille avec un nombre infini de case
+              crossAxisCount: 2,
               mainAxisExtent: height + 10,
-              crossAxisSpacing: 10),
+              crossAxisSpacing: 10), // espace entre chaque colonne
           itemBuilder: (ctx, index) {
             if (index != patients.length) {
               return PatientOverview(
