@@ -65,7 +65,7 @@ class PatientOverview extends StatefulWidget {
   PatientOverview(
     this.patient, {
     super.key,
-    double height = 200.0,
+    double height = 300.0,
     double width = 100.0,
   }) : _layout = _Layout(
             height: height, width: width, cornerRadius: 10, borderWidth: 4);
@@ -146,6 +146,10 @@ class _PatientOverviewState extends State<PatientOverview> {
               _MoodSection(moodData, layout: widget._layout, colors: colorMood),
               _DayButtonsSection(_selected,
                   layout: widget._layout, colors: colors, onPressed: select),
+              _Meeting(
+                layout: widget._layout,
+                colors: colors,
+              ),
             ],
           );
         });
@@ -233,7 +237,7 @@ class _MeanTimeSection extends StatelessWidget {
     final texts = LocaleText.of(context);
 
     return Container(
-      height: layout.height * 3 / 20,
+      height: layout.height * 2 / 20,
       width: layout.width,
       decoration: BoxDecoration(
           border: Border(
@@ -296,6 +300,7 @@ class _DayTextButton extends StatelessWidget {
 }
 
 class _MoodSection extends StatelessWidget {
+  //classe des différents moods
   const _MoodSection(
     this.moodData, {
     required this.layout,
@@ -314,7 +319,7 @@ class _MoodSection extends StatelessWidget {
         border: Border(
             bottom: BorderSide(color: colors.dark, width: layout.borderWidth)),
       ),
-      height: layout.height * 10 / 20,
+      height: layout.height * 9 / 20,
       width: layout.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -359,6 +364,7 @@ class _MoodSection extends StatelessWidget {
 }
 
 class _DayButtonsSection extends StatelessWidget {
+  // classe boutton pour choisir les jours
   const _DayButtonsSection(
     this.selected, {
     required this.layout,
@@ -376,13 +382,16 @@ class _DayButtonsSection extends StatelessWidget {
     //partie bouttons des jours
     return Container(
       width: layout.width,
-      height: layout.height * 3 / 20,
+      height: layout.height * 3.5 / 20,
       decoration: BoxDecoration(
-          color: colors.light,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(layout.cornerRadius),
-            bottomRight: Radius.circular(layout.cornerRadius),
-          )),
+        border: Border(
+            bottom: BorderSide(color: colors.dark, width: layout.borderWidth)),
+        color: colors.light,
+        //borderRadius: BorderRadius.only(
+        //bottomLeft: Radius.circular(layout.cornerRadius),
+        //bottomRight: Radius.circular(layout.cornerRadius),
+        //)
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -409,6 +418,60 @@ class _DayButtonsSection extends StatelessWidget {
                 layout: layout,
                 colors: selected == 3 ? colors.dark : colors.extraLight,
                 onPressed: () => onPressed(3)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Meeting extends StatelessWidget {
+  const _Meeting({required this.layout, required this.colors});
+
+  final _Layout layout;
+  final _BackgroundColors colors;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: colors.light,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(layout.cornerRadius),
+            bottomRight: Radius.circular(layout.cornerRadius),
+          )),
+      width: layout.width,
+      height: layout.height * 1.5 / 20,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          OutlinedButton.icon(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.add_call,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+            label: const Text(
+              'Appel',
+              style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 10,
+              ),
+            ),
+          ),
+          OutlinedButton.icon(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.accessibility_new,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+            label: const Text(
+              'RDV',
+              style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 10,
+              ),
+            ),
           ),
         ],
       ),
