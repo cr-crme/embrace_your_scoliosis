@@ -19,28 +19,34 @@ class AskQuestions extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'As-tu une question ou une remarque ?',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 237, 223, 252), fontSize: 24),
-            ),
-            TextButton(
+            OutlinedButton.icon(
               onPressed: () {},
-              child: const Text(
-                'Je dois voir le praticien',
+              icon: const Icon(Icons.arrow_right_alt),
+              label: const Text(
+                'As-tu une question ou une remarque ?',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 237, 223, 252), fontSize: 15),
+              ),
+            ),
+            OutlinedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add_call),
+              label: const Text(
+                'Je veux avoir un appel avec mon médecin',
                 style: TextStyle(
                   color: Color.fromARGB(255, 237, 223, 252),
-                  fontSize: 24,
+                  fontSize: 15,
                 ),
               ),
             ),
-            TextButton(
+            OutlinedButton.icon(
               onPressed: () {},
-              child: const Text(
-                'Je dois appeler le praticien',
+              icon: const Icon(Icons.accessibility_new),
+              label: const Text(
+                'Je veux avoir un rendez-vous avec mon médecin',
                 style: TextStyle(
                   color: Color.fromARGB(255, 237, 223, 252),
-                  fontSize: 24,
+                  fontSize: 15,
                 ),
               ),
             )
