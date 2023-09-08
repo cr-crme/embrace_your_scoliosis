@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class AskQuestions extends StatelessWidget {
   const AskQuestions({super.key});
+
+  //final void Function() changeColor;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,6 +32,7 @@ class AskQuestions extends StatelessWidget {
             ),
             OutlinedButton.icon(
               onPressed: () {},
+              //changeColor,
               icon: const Icon(Icons.add_call),
               label: const Text(
                 'Je veux avoir un appel avec mon médecin',

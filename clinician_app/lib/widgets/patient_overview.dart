@@ -65,7 +65,7 @@ class PatientOverview extends StatefulWidget {
   PatientOverview(
     this.patient, {
     super.key,
-    double height = 300.0,
+    double height = 200.0,
     double width = 100.0,
   }) : _layout = _Layout(
             height: height, width: width, cornerRadius: 10, borderWidth: 4);
@@ -146,10 +146,11 @@ class _PatientOverviewState extends State<PatientOverview> {
               _MoodSection(moodData, layout: widget._layout, colors: colorMood),
               _DayButtonsSection(_selected,
                   layout: widget._layout, colors: colors, onPressed: select),
-              _Meeting(
-                layout: widget._layout,
-                colors: colors,
-              ),
+              Meeting(colors.light, colors.dark),
+              // _Meeting(
+              //   layout: widget._layout,
+              //   colors: colors,
+              // ),
             ],
           );
         });
@@ -319,7 +320,7 @@ class _MoodSection extends StatelessWidget {
         border: Border(
             bottom: BorderSide(color: colors.dark, width: layout.borderWidth)),
       ),
-      height: layout.height * 9 / 20,
+      height: layout.height * 8.5 / 20,
       width: layout.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -425,36 +426,62 @@ class _DayButtonsSection extends StatelessWidget {
   }
 }
 
-class _Meeting extends StatelessWidget {
-  const _Meeting({required this.layout, required this.colors});
+class Meeting extends StatefulWidget {
+  const Meeting(this.light, this.dark, {super.key});
 
-  final _Layout layout;
-  final _BackgroundColors colors;
+  final Color light;
+  final Color dark;
+
+  @override
+  State<Meeting> createState() {
+    return _MeetingState();
+  }
+}
+
+class _MeetingState extends State<Meeting> {
+  Color activeColor = Colors.black;
+
+  void switchColor() {
+    setState(() {
+      activeColor = Colors.white;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          color: colors.light,
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 75, 21, 167),
+              Color.fromARGB(255, 107, 15, 168),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(layout.cornerRadius),
-            bottomRight: Radius.circular(layout.cornerRadius),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
           )),
-      width: layout.width,
-      height: layout.height * 1.5 / 20,
+      width: 200,
+      height: 200 * 3 / 20,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           OutlinedButton.icon(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.add_call,
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: activeColor == Colors.black
+                  ? const Color.fromARGB(255, 0, 0, 0)
+                  : const Color.fromARGB(255, 255, 255, 255),
             ),
-            label: const Text(
+            label: Text(
               'Appel',
               style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: activeColor == Colors.black
+                    ? const Color.fromARGB(255, 0, 0, 0)
+                    : const Color.fromARGB(255, 255, 255, 255),
                 fontSize: 10,
               ),
             ),
@@ -478,3 +505,57 @@ class _Meeting extends StatelessWidget {
     );
   }
 }
+
+// class _Meeting extends StatelessWidget {
+//   const _Meeting({required this.layout, required this.colors});
+
+//   final _Layout layout;
+//   final _BackgroundColors colors;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//           color: colors.light,
+//           borderRadius: BorderRadius.only(
+//             bottomLeft: Radius.circular(layout.cornerRadius),
+//             bottomRight: Radius.circular(layout.cornerRadius),
+//           )),
+//       width: layout.width,
+//       height: layout.height * 2 / 20,
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         children: [
+//           OutlinedButton.icon(
+//             onPressed: () {},
+//             icon: const Icon(
+//               Icons.add_call,
+//               color: Color.fromARGB(255, 0, 0, 0),
+//             ),
+//             label: const Text(
+//               'Appel',
+//               style: TextStyle(
+//                 color: Color.fromARGB(255, 0, 0, 0),
+//                 fontSize: 10,
+//               ),
+//             ),
+//           ),
+//           OutlinedButton.icon(
+//             onPressed: () {},
+//             icon: const Icon(
+//               Icons.accessibility_new,
+//               color: Color.fromARGB(255, 0, 0, 0),
+//             ),
+//             label: const Text(
+//               'RDV',
+//               style: TextStyle(
+//                 color: Color.fromARGB(255, 0, 0, 0),
+//                 fontSize: 10,
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
