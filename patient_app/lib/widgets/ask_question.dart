@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:patient_app/widgets/text_question.dart';
 
-class AskQuestions extends StatelessWidget {
+class AskQuestions extends StatefulWidget {
   const AskQuestions({super.key});
 
-  //final void Function() changeColor;
+  @override
+  State<AskQuestions> createState() {
+    return _AskQuestions();
+  }
+}
+
+class _AskQuestions extends State<AskQuestions> {
+  void _openQuestionOverlay() {
+    //méthode permettant d'ouvrir la page ou le patient pose sa question
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => const TextQuestions(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,12 +37,14 @@ class AskQuestions extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: _openQuestionOverlay,
               icon: const Icon(Icons.arrow_right_alt),
               label: const Text(
                 'As-tu une question ou une remarque ?',
                 style: TextStyle(
-                    color: Color.fromARGB(255, 237, 223, 252), fontSize: 15),
+                  color: Color.fromARGB(255, 237, 223, 252),
+                  fontSize: 15,
+                ),
               ),
             ),
             OutlinedButton.icon(
