@@ -35,7 +35,7 @@ class _TextQuestions extends State<TextQuestions> {
           ),
           Row(
             children: [
-              ElevatedButton(
+              TextButton(
                 onPressed: () {
                   Navigator.pop(
                       context); //enlève la page de question de l'écran

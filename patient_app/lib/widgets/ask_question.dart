@@ -10,6 +10,8 @@ class AskQuestions extends StatefulWidget {
   }
 }
 
+// faire une fonction du genre selected qu'il y a dans mood_questionnaire
+
 class _AskQuestions extends State<AskQuestions> {
   void _openQuestionOverlay() {
     //méthode permettant d'ouvrir la page ou le patient pose sa question

@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clinician_app/widgets/Calendar_date.dart';
 import 'package:common_lib/models/database.dart';
 import 'package:common_lib/models/enums.dart';
 import 'package:common_lib/models/main_user.dart';
 import 'package:common_lib/models/mood_list.dart';
 import 'package:common_lib/models/patient_data.dart';
+//import 'package:common_lib/models/wearing_time.dart';
 import 'package:common_lib/models/wearing_time_list.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +90,8 @@ class _PatientOverviewState extends State<PatientOverview> {
   }
 
   Future<MainUser?> _fetchUser() async {
-    return await Database.of(context).user(widget.patient.id);
+    return await Database.of(context)
+        .user(widget.patient.id); //va chercher dans la database id patient
   }
 
   void select(int index) {
@@ -98,7 +101,7 @@ class _PatientOverviewState extends State<PatientOverview> {
 
   DateTime get _fromSelection {
     if (_selected == 0) {
-      return DateTime.now().subtract(const Duration(days: 1));
+      return dayChoose.subtract(const Duration(days: 1));
     } else if (_selected == 1) {
       return DateTime.now().subtract(const Duration(days: 7));
     } else if (_selected == 2) {
@@ -364,6 +367,8 @@ class _MoodSection extends StatelessWidget {
   }
 }
 
+DateTime dayChoose = DateTime.now();
+
 class _DayButtonsSection extends StatelessWidget {
   // classe boutton pour choisir les jours
   const _DayButtonsSection(
@@ -380,6 +385,15 @@ class _DayButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void openDateOverlay() {
+      //méthode permettant d'ouvrir la page ou le patient pose sa question
+      showModalBottomSheet(
+        context: context,
+        builder: (ctx) =>
+            CalendarDate(onChooseDate: (selectedDate) => onPressed(0)),
+      );
+    }
+
     //partie bouttons des jours
     return Container(
       width: layout.width,
@@ -395,13 +409,27 @@ class _DayButtonsSection extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            child: _DayTextButton('1j',
-                layout: layout,
-                colors: selected == 0 ? colors.dark : colors.extraLight,
-                onPressed: () => onPressed(0)),
+          TextButton.icon(
+            onPressed: openDateOverlay,
+            icon: Icon(
+              Icons.calendar_month,
+              color: selected == 0 ? colors.dark : colors.extraLight,
+            ),
+            label: const Text(
+              '1j',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ),
+          // Expanded(
+          //   child: _DayTextButton('1j',
+          //       layout: layout,
+          //       colors: selected == 0 ? colors.dark : colors.extraLight,
+          //       onPressed: () => onPressed(0)),
+          // ),
           Expanded(
             child: _DayTextButton('7j',
                 layout: layout,
@@ -453,8 +481,8 @@ class _MeetingState extends State<Meeting> {
       decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 75, 21, 167),
-              Color.fromARGB(255, 107, 15, 168),
+              Color.fromARGB(255, 112, 82, 163),
+              Color.fromARGB(255, 127, 78, 159),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
