@@ -20,6 +20,7 @@ class MoodQuestionnaire extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //éléments de design concernant la partie questionnaire
     final texts = LocaleText.of(context);
     return Flexible(
       child: Container(

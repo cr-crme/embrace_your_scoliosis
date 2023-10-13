@@ -27,7 +27,8 @@ class PatientDataList extends FirebaseListProvided<PatientData> {
     final currentUser = Database.of(context).currentUser!;
     final moodList = MoodList();
     moodList.add(mood);
-    insertInList('${currentUser.id}/mood', moodList);
+    insertInList('${currentUser.id}/mood',
+        moodList); //met la moodlist dans la base de donnée firebase
   }
 
   void addMoodList(BuildContext context, MoodList moodList) {

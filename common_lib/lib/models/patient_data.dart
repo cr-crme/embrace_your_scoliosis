@@ -13,6 +13,7 @@ class PatientData extends ItemSerializable {
       : wearingData = WearingTimeList(),
         moodData = MoodList(),
         super(id: emailToPath(user.email));
+  //ajouter questiondata = nom de la classe que j'ai créée
 
   PatientData.fromSerialized(map)
       : wearingData = map != null && map['wearing'] != null
