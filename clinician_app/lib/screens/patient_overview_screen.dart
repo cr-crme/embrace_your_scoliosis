@@ -8,9 +8,11 @@ import '/widgets/patient_overview.dart';
 import '/widgets/add_patient.dart';
 
 class PatientOverviewScreen extends StatelessWidget {
+  //The PatientOverviewScreen widget is a stateless widget, that doesn't have mutable state.
   const PatientOverviewScreen({super.key});
 
-  static const String routeName = '/patient-overview-screen';
+  static const String routeName =
+      '/patient-overview-screen'; // The LoginScreen widget defines a static constant routeName with the value '/patient-overview-screen'.
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,9 @@ class PatientOverviewScreen extends StatelessWidget {
     final database = Database.of(context);
     if (database.currentUser!.userType != UserType.clinician) {
       return Scaffold(
-        body: Center(child: Text(texts.notLicenced)),
+        body: Center(
+            child: Text(texts
+                .notLicenced)), // if the user is not the cliniance it will return a text saying that he isn't referenced int the database
       );
     }
     final patients = PatientDataList.of(context, listen: true);
@@ -30,15 +34,15 @@ class PatientOverviewScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: Padding(
-        //padding fait une séparation entre chaque fiche patient
+        //padding allows to have a separation between each patient file
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
-          // GridView permet de mettre plusieurs fiche patient sur la même ligne
+          // GridView is the widget which allows us to put several patient on the same raw
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //grille avec un nombre infini de case
-              crossAxisCount: 2,
+              // grid with an infinite number of cases
+              crossAxisCount: 2, // two patients for each row
               mainAxisExtent: height + 10,
-              crossAxisSpacing: 10), // espace entre chaque colonne
+              crossAxisSpacing: 10), // space between each column
           itemBuilder: (ctx, index) {
             if (index != patients.length) {
               return PatientOverview(
@@ -47,7 +51,10 @@ class PatientOverviewScreen extends StatelessWidget {
                 height: height,
               );
             } else {
-              return AddPatient(height: height, width: width);
+              return AddPatient(
+                  height: height,
+                  width:
+                      width); // return the file add_patient where the styling is already done
             }
           },
           itemCount: patients.length + 1,

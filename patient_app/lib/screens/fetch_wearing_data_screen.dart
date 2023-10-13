@@ -10,10 +10,11 @@ import '/data_collection_devices/data_collection_devices.dart';
 import '/data_collection_devices/devices/available_devices.dart';
 
 class FetchWearingDataScreen extends StatefulWidget {
+  // FetchWearingDataScreen is a StatefulWidget that represents the screen. It takes two required parameters:
   const FetchWearingDataScreen({
     super.key,
-    required this.device,
-    required this.nextRoute,
+    required this.device, // device: An enum value representing the type of device from which data will be fetched.
+    required this.nextRoute, // nextRoute: A string representing the name of the next route to navigate to after data processing is complete.
   });
 
   static const String routeName = '/fetch-data-screen';
@@ -30,12 +31,18 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
   late String _statusMessage;
   bool _isSending = false;
 
+  // _FetchWearingDataScreenState is the state class for FetchWearingDataScreen.
+  // It holds the state of the screen, including the _dataCollectionDevice, _hasFetchedData, _statusMessage, and _isSending variables.
+
   @override
   void initState() {
     super.initState();
-    _dataCollectionDevice = _prepareDevice(widget.device);
-    _hasFetchedData = _dataCollectionDevice.fetchData(context,
-        onDeviceConnected: _onDeviceConnected);
+    _dataCollectionDevice = _prepareDevice(widget
+        .device); // In the initState method, the _dataCollectionDevice is prepared based on the selected device type,
+    _hasFetchedData = _dataCollectionDevice.fetchData(
+        context, // and _hasFetchedData is initialized by calling _dataCollectionDevice.fetchData.
+        onDeviceConnected:
+            _onDeviceConnected); //The _statusMessage is set to an initial message.
 
     final texts = LocaleText.of(context, listen: false);
     _statusMessage = texts.connectingToDevice;
@@ -55,7 +62,9 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
   }
 
   void _sendToDatabase(
-      BuildContext context, DataCollectionDevice device) async {
+      // _sendToDatabase is a private method that sends the collected data to a database.
+      BuildContext context,
+      DataCollectionDevice device) async {
     _isSending = true;
     final texts = LocaleText.of(context, listen: false);
 
@@ -64,7 +73,9 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
     final period = 60 ~/ device.frequency;
     for (final data in device.data) {
       wear.add(WearingTime(
-          data.date, Duration(minutes: data.isBraceOn ? period : 0),
+          //It constructs a WearingTimeList based on the collected data and sends it to the database.
+          data.date,
+          Duration(minutes: data.isBraceOn ? period : 0),
           id: data.id));
     }
     PatientDataList.of(context).addWearingTimeList(context, wear);
@@ -72,7 +83,8 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
     // Patiently wait the database confirms the data were received
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
-        _statusMessage = texts.sendingToDatabase;
+        _statusMessage = texts
+            .sendingToDatabase; //It then waits for confirmation from the database and updates the _statusMessage accordingly.
       });
     });
 
@@ -111,20 +123,25 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
   }
 
   void _onDeviceConnected() {
+    // _onDeviceConnected is a callback method that is called when the device is connected.
     final texts = LocaleText.of(context, listen: false);
     _statusMessage = texts.collectingData;
-    setState(() {});
+    setState(
+        () {}); //It updates the _statusMessage to indicate that data collection is in progress.
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      // In the build method, a FutureBuilder is used to wait for _hasFetchedData.
       future: _hasFetchedData,
       builder: (context, data) {
         if (data.hasData && !_isSending) {
+          // Once data is available and _isSending is not true, _sendToDatabase is called.
           _sendToDatabase(context, _dataCollectionDevice);
         }
         return Scaffold(
+          // The widget displays a purple background with a rotating status message (using Transform.rotate)
           body: Container(
             decoration: const BoxDecoration(color: Colors.purple),
             child: Center(
@@ -152,6 +169,7 @@ class _FetchWearingDataScreenState extends State<FetchWearingDataScreen> {
                   ),
                   const SizedBox(height: 20),
                   const CircularProgressIndicator(
+                    //  a loading indicator while the data is being processed.
                     color: Colors.amber,
                   ),
                 ],
